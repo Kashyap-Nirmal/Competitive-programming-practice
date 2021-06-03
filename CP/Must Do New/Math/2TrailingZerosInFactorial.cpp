@@ -2,8 +2,9 @@
 	https://practice.geeksforgeeks.org/problems/trailing-zeroes-in-factorial5134/1
 	030621
 	Must do New
-	Logic:	
+	Logic:		
 		Check factorials from 1 to 20. And then from 1 to 100.
+		https://www.mymathtables.com/numbers/100-factorial-tables-chart.html
 		Hint: at 25 zeroes increases by 2 not 1.!!
 */
 class Solution
