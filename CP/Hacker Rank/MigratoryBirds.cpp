@@ -1,6 +1,6 @@
 /*
-	https://www.hackerrank.com/challenges/between-two-sets/problem
-	010721
+	https://www.hackerrank.com/challenges/migratory-birds/problem
+	020721
 	Solution
 */
 #include <bits/stdc++.h>
@@ -12,68 +12,53 @@ string rtrim(const string &);
 vector<string> split(const string &);
 
 /*
- * Complete the 'getTotalX' function below.
+ * Complete the 'migratoryBirds' function below.
  *
  * The function is expected to return an INTEGER.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
+ * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-int getTotalX(vector<int> a, vector<int> b) {
-    int ans=0,i,x;
-    bool ok=true;
-    for(x=1;x<=100;x++){
-        ok=true;
-        for(i=0;i<a.size();i++) if(x%a[i]!=0) ok=false;
-        for(i=0;ok && i<b.size();i++) if(b[i]%x!=0) ok=false; 
-        if(ok) ans++;
+int migratoryBirds(vector<int> arr) {
+    int i=0,id,counter[6] = {0}, result = 0, max = 0;
+    for (i = 0; i < arr.size(); ++i) {
+        id = arr[i];
+        counter[id]++;
+        if (counter[id] > max) 
+        {
+            max = counter[id];
+            result = id;
+        } 
+        else if (counter[id] == max) 
+            result = fmin(result, id);        
     }
-    return ans;
+    return result;
 }
 
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
 
-    string first_multiple_input_temp;
-    getline(cin, first_multiple_input_temp);
+    string arr_count_temp;
+    getline(cin, arr_count_temp);
 
-    vector<string> first_multiple_input = split(rtrim(first_multiple_input_temp));
-
-    int n = stoi(first_multiple_input[0]);
-
-    int m = stoi(first_multiple_input[1]);
+    int arr_count = stoi(ltrim(rtrim(arr_count_temp)));
 
     string arr_temp_temp;
     getline(cin, arr_temp_temp);
 
     vector<string> arr_temp = split(rtrim(arr_temp_temp));
 
-    vector<int> arr(n);
+    vector<int> arr(arr_count);
 
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < arr_count; i++) {
         int arr_item = stoi(arr_temp[i]);
 
         arr[i] = arr_item;
     }
 
-    string brr_temp_temp;
-    getline(cin, brr_temp_temp);
+    int result = migratoryBirds(arr);
 
-    vector<string> brr_temp = split(rtrim(brr_temp_temp));
-
-    vector<int> brr(m);
-
-    for (int i = 0; i < m; i++) {
-        int brr_item = stoi(brr_temp[i]);
-
-        brr[i] = brr_item;
-    }
-
-    int total = getTotalX(arr, brr);
-
-    fout << total << "\n";
+    fout << result << "\n";
 
     fout.close();
 

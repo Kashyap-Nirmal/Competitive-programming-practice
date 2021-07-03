@@ -1,8 +1,9 @@
 /*
-	https://www.hackerrank.com/challenges/between-two-sets/problem
-	010721
+	https://www.hackerrank.com/challenges/divisible-sum-pairs/problem
+	020721
 	Solution
 */
+
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -12,24 +13,27 @@ string rtrim(const string &);
 vector<string> split(const string &);
 
 /*
- * Complete the 'getTotalX' function below.
+ * Complete the 'divisibleSumPairs' function below.
  *
  * The function is expected to return an INTEGER.
  * The function accepts following parameters:
- *  1. INTEGER_ARRAY a
- *  2. INTEGER_ARRAY b
+ *  1. INTEGER n
+ *  2. INTEGER k
+ *  3. INTEGER_ARRAY ar
  */
 
-int getTotalX(vector<int> a, vector<int> b) {
-    int ans=0,i,x;
-    bool ok=true;
-    for(x=1;x<=100;x++){
-        ok=true;
-        for(i=0;i<a.size();i++) if(x%a[i]!=0) ok=false;
-        for(i=0;ok && i<b.size();i++) if(b[i]%x!=0) ok=false; 
-        if(ok) ans++;
-    }
-    return ans;
+int divisibleSumPairs(int n, int k, vector<int> ar) {
+    int i,sum=0,m[k]={0};
+    for(i = 0; i < n; i++){
+        m[ar[i]%k]++;
+    }    
+    sum+=(m[0]*(m[0]-1))/2;
+        for(int i=1; i<=k/2 && i!=k-i; i++){
+            sum+=m[i]*m[k-i];
+        }
+    if(k%2==0)
+        sum+=(m[k/2]*(m[k/2]-1))/2;
+    return sum;
 }
 
 int main()
@@ -43,37 +47,24 @@ int main()
 
     int n = stoi(first_multiple_input[0]);
 
-    int m = stoi(first_multiple_input[1]);
+    int k = stoi(first_multiple_input[1]);
 
-    string arr_temp_temp;
-    getline(cin, arr_temp_temp);
+    string ar_temp_temp;
+    getline(cin, ar_temp_temp);
 
-    vector<string> arr_temp = split(rtrim(arr_temp_temp));
+    vector<string> ar_temp = split(rtrim(ar_temp_temp));
 
-    vector<int> arr(n);
+    vector<int> ar(n);
 
     for (int i = 0; i < n; i++) {
-        int arr_item = stoi(arr_temp[i]);
+        int ar_item = stoi(ar_temp[i]);
 
-        arr[i] = arr_item;
+        ar[i] = ar_item;
     }
 
-    string brr_temp_temp;
-    getline(cin, brr_temp_temp);
+    int result = divisibleSumPairs(n, k, ar);
 
-    vector<string> brr_temp = split(rtrim(brr_temp_temp));
-
-    vector<int> brr(m);
-
-    for (int i = 0; i < m; i++) {
-        int brr_item = stoi(brr_temp[i]);
-
-        brr[i] = brr_item;
-    }
-
-    int total = getTotalX(arr, brr);
-
-    fout << total << "\n";
+    fout << result << "\n";
 
     fout.close();
 
