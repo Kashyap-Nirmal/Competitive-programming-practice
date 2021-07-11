@@ -1,7 +1,7 @@
 /*
 	https://www.hackerrank.com/challenges/migratory-birds/problem
 	020721
-	Solution
+	Done+ Solution
 */
 #include <bits/stdc++.h>
 
@@ -19,19 +19,35 @@ vector<string> split(const string &);
  */
 
 int migratoryBirds(vector<int> arr) {
-    int i=0,id,counter[6] = {0}, result = 0, max = 0;
-    for (i = 0; i < arr.size(); ++i) {
-        id = arr[i];
-        counter[id]++;
-        if (counter[id] > max) 
-        {
-            max = counter[id];
-            result = id;
-        } 
-        else if (counter[id] == max) 
-            result = fmin(result, id);        
-    }
-    return result;
+	//My code 110721 
+	long long i=0,max_=0,a[5]={0};
+    for(i=0;i<arr.size();i++)
+        a[(arr[i]%5)]++;
+    for(i=1;i<5;i++)
+        if(a[i]>a[max_])
+            max_=i;        
+    if(max_==0)
+        return 5;
+    return max_;
+	
+	/*
+		Solution
+		
+		int i=0,id,counter[6] = {0}, result = 0, max = 0;
+		for (i = 0; i < arr.size(); ++i) {
+			id = arr[i];
+			counter[id]++;
+			if (counter[id] > max) 
+			{
+				max = counter[id];
+				result = id;
+			} 
+			else if (counter[id] == max) 
+				result = fmin(result, id);        
+		}
+		return result;
+	
+	*/
 }
 
 int main()
