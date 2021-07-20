@@ -20,7 +20,7 @@ string rtrim(const string &);
  *  2. INTEGER m
  */
 
-string timeInWords(int h, int m) {    
+string timeInWords(int h, int m) {
     //Inspiration:https://www.geeksforgeeks.org/convert-number-to-words/
     string single_digits[]= { "zero", "one", "two",   "three", "four","five", "six",    
     "seven", "eight", "nine","ten","eleven", "tweleve"};
@@ -45,8 +45,6 @@ string timeInWords(int h, int m) {
     {
         t1="past";
         t="half";
-        time=t+" "+t1+" "+t2;
-        return time;
     }        
     else if(m>30)  
     {
@@ -62,12 +60,13 @@ string timeInWords(int h, int m) {
         t=tens_multiple[m/10]+" "+single_digits[m%10];    
     if(m==1)
         time=t+" minute "+t1+" "+t2;
-    else if(m!=15)
+    else if(m!=15 && m!=30)
         time=t+" minutes "+t1+" "+t2;    
     else
         time=t+" "+t1+" "+t2;    
     return time;
 }
+
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
